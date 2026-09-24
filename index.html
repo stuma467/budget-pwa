@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#4a6fa5">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Бюджет">
+  <title>Бюджет</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <h1 id="screen-title">Доходы</h1>
+    <div class="header-actions">
+      <button id="export-btn" class="icon-btn" title="Экспорт данных">💾</button>
+      <button id="import-btn" class="icon-btn" title="Импорт данных">📥</button>
+      <input type="file" id="import-file" accept="application/json" hidden>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Доходы -->
+    <section id="screen-incomes" class="screen active">
+      <form id="income-form" class="form">
+        <label><span>Сумма</span>
+          <input type="number" id="income-amount" inputmode="decimal" step="0.01" min="0" placeholder="0" required>
+        </label>
+        <label><span>Категория</span>
+          <select id="income-category"></select>
+        </label>
+        <label><span>Дата</span>
+          <input type="date" id="income-date" required>
+        </label>
+        <label><span>Примечание (необязательно)</span>
+          <input type="text" id="income-note" placeholder="">
+        </label>
+        <button type="submit" class="primary">Сохранить доход</button>
+      </form>
+      <h2 class="section-title">Список доходов</h2>
+      <div id="income-list" class="list"></div>
+    </section>
+
+    <!-- Расходы -->
+    <section id="screen-expenses" class="screen">
+      <form id="expense-form" class="form">
+        <label><span>Сумма</span>
+          <input type="number" id="expense-amount" inputmode="decimal" step="0.01" min="0" placeholder="0" required>
+        </label>
+        <label><span>Категория</span>
+          <select id="expense-category"></select>
+        </label>
+        <label><span>Дата</span>
+          <input type="date" id="expense-date" required>
+        </label>
+        <label><span>Примечание (необязательно)</span>
+          <input type="text" id="expense-note" placeholder="">
+        </label>
+        <button type="submit" class="primary">Сохранить расход</button>
+      </form>
+      <h2 class="section-title">Список расходов</h2>
+      <div id="expense-list" class="list"></div>
+    </section>
+
+    <!-- Категории -->
+    <section id="screen-categories" class="screen">
+      <div class="cat-tabs">
+        <button class="cat-tab active" data-cat="income">Доходы</button>
+        <button class="cat-tab" data-cat="expense">Расходы</button>
+      </div>
+      <div class="form">
+        <label><span id="cat-input-label">Название категории дохода</span>
+          <input type="text" id="cat-input" placeholder="Например, Зарплата">
+        </label>
+        <button id="cat-add-btn" class="primary" type="button">Добавить категорию дохода</button>
+      </div>
+      <h2 class="section-title">Список категорий</h2>
+      <div id="cat-list" class="list"></div>
+    </section>
+
+    <!-- Статистика -->
+    <section id="screen-stats" class="screen">
+      <div class="period">
+        <button class="period-btn" data-period="month">Месяц</button>
+        <button class="period-btn" data-period="year">Год</button>
+        <button class="period-btn" data-period="all">Весь</button>
+      </div>
+      <div id="stats-summary" class="summary card"></div>
+      <h2 class="section-title">По дням</h2>
+      <div id="stats-days"></div>
+    </section>
+  </main>
+
+  <nav class="tabbar">
+    <button data-screen="incomes" class="active">Доходы</button>
+    <button data-screen="expenses">Расходы</button>
+    <button data-screen="categories">Категории</button>
+    <button data-screen="stats">Статистика</button>
+  </nav>
+
+  <script src="app.js"></script>
+</body>
+</html>
