@@ -2,23 +2,21 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#4a6fa5">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+  <meta name="theme-color" content="#0e1116">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Бюджет">
   <title>Бюджет</title>
   <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.svg">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="header">
     <h1 id="screen-title">Доходы</h1>
-    <div class="header-actions">
-      <button id="export-btn" class="icon-btn" title="Экспорт данных">💾</button>
-      <button id="import-btn" class="icon-btn" title="Импорт данных">📥</button>
-      <input type="file" id="import-file" accept="application/json" hidden>
-    </div>
+    <button id="backup-btn" class="icon-btn" aria-label="Резервная копия">⇅</button>
   </header>
 
   <main id="main">
@@ -99,6 +97,35 @@
     <button data-screen="categories">Категории</button>
     <button data-screen="stats">Статистика</button>
   </nav>
+
+  <!-- Оверлей резервной копии -->
+  <div class="overlay" id="backup-overlay">
+    <div class="ov-header">
+      <button class="icon-btn" id="backup-close" aria-label="Закрыть">✕</button>
+      <div class="ov-title">Резервная копия</div>
+      <div class="ov-spacer"></div>
+    </div>
+    <div class="ov-body">
+      <div class="hint">
+        Данные хранятся только в этом браузере. Если очистить Safari — всё пропадёт.
+        Скопируйте текст и сохраните в «Заметках» или скачайте файлом.
+      </div>
+      <textarea class="ov-textarea" id="backup-text" spellcheck="false"
+                autocapitalize="off" autocorrect="off"></textarea>
+      <div class="btn-row">
+        <button class="btn" id="copy-backup">Скопировать</button>
+        <button class="btn" id="download-backup">Скачать файл</button>
+      </div>
+      <div class="btn-row">
+        <button class="btn" id="load-file-btn">Загрузить файл</button>
+        <button class="btn primary" id="restore-backup">Восстановить</button>
+      </div>
+      <div class="hint">«Восстановить» применит JSON из поля выше — можно просто вставить текст.</div>
+      <input type="file" id="file-input" accept=".json,application/json" hidden>
+    </div>
+  </div>
+
+  <div id="toast"></div>
 
   <script src="app.js"></script>
 </body>
